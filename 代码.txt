@@ -1,0 +1,50 @@
+
+import codecs
+import re
+import jieba
+
+items = []
+
+file1 = codecs.open('/home/haytham/week2/homework/词典/主题/主题.txt', 'r','utf-8')
+for line in file1.readlines():
+    line = line.strip(" ")
+    line = line.strip("\n")
+    items.append((line , 1))
+
+file2 = codecs.open('/home/haytham/week2/homework/词典/主题/题材内容.txt', 'r','utf-8')
+for line in file2.readlines():
+    line = line.strip(" ")
+    line = line.strip("\n")
+    items.append((line , 1))
+
+file3 = codecs.open('/home/haytham/week2/homework/词典/主题/风格.txt', 'r','utf-8')
+for line in file3.readlines():
+    line = line.strip(" ")
+    line = line.strip("\n")
+    items.append((line , 1))
+
+lines = ''
+
+files = open('/home/haytham/week2/homework/太空旅客.txt', 'r')
+for line in files.readlines():
+    line = line.strip("\n")
+    lines += line
+
+f = codecs.open('/home/haytham/树蛙作业/主题评论关注点.txt', 'w','utf-8')
+itemsdict = dict(items)
+words = jieba.cut(lines)
+
+for word in words:
+    if word in itemsdict.keys():
+        itemsdict[word] += 1
+for key in itemsdict.keys():
+    rewrite = key + str(itemsdict[key]) + '\n'
+    f.write(rewrite)
+
+ff = codecs.open('/home/haytham/树蛙作业/主题评论关注点.txt', 'r','utf-8')
+for line in ff.readlines():
+    line = line.strip(" ")
+    line = line.strip("\n")
+    line = line.strip("1")
+    print line
+
